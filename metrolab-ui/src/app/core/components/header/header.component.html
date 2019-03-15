@@ -1,0 +1,10 @@
+<mat-toolbar color="primary" class="app-toolbar no-print" *ngIf="currentUser">
+    <a class="nav-link home" routerLink="/">Metrolab...</a>
+    <span class="top-menu-spacer"></span>
+    <a mat-icon-button routerLink="/admin" *ngIf="isAdmin">
+        <mat-icon>settings</mat-icon>
+    </a>
+    <button (click)="logout()" mat-icon-button>
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+</mat-toolbar>
