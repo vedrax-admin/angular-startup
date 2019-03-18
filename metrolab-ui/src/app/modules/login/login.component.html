@@ -1,0 +1,30 @@
+<mat-card>
+    <mat-card-title>
+        Login
+    </mat-card-title>
+    <mat-card-content>
+        <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+            <mat-form-field class="full-width">
+                <input type="email" matInput placeholder="Email" formControlName="username">
+                <mat-error *ngIf="submitted && authForm.username.errors">A valid email is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input matInput type="password" placeholder="Password" formControlName="password">
+                <mat-error *ngIf="submitted && authForm.password.errors">The password must have at least 4 characters
+                </mat-error>
+            </mat-form-field>
+
+            <div class="pt-25">
+                <button class="full-width" type="submit" [disabled]="loading" mat-raised-button
+                    color="primary">{{loading ? 'Please wait...' : 'Login'}}</button>
+            </div>
+
+            <div *ngIf="error" class="alert alert-danger" role="alert">
+                {{error}}
+            </div>
+
+        </form>
+    </mat-card-content>
+</mat-card>
