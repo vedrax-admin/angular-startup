@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from './../../core/services/authentication.service';
-import { User, Role } from './../../core/models';
+import { User } from './../../core/models/user.model';
+import { Role } from './../../core/models/role.enum';
 
 @Component({
     selector: 'metrolab-header',

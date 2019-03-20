@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { NoAuthGuard } from './core/guards/no-auth.guard';
 import { AuthGuard } from './core/guards/auth.guard';
-import { Role } from './core/models';
+import { Role } from './core/models/role.enum';
 
 const appRoutes: Routes = [
     {

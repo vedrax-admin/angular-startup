@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { SharedModule } from './../../shared/shared.module';
 
 import { BusinessRoutingModule } from './business.routing';
+import { CompanyComponent } from './company/company.component';
+import { EntryComponent } from './entry/entry.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CompanyComponent,
+    EntryComponent
+  ],
   imports: [
-    CommonModule,
+    SharedModule,
     BusinessRoutingModule
   ]
 })

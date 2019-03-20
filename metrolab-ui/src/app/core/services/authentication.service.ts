@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { User } from './../models';
+import { User } from './../models/user.model';
 import { ApiService } from './api.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    
+
     /**
      * Hold the authenticated user that needs to be share with other components
      */
@@ -16,12 +16,11 @@ export class AuthenticationService {
     /**
      * An Observable of the authenticated user 
      */
-    public currentUser: Observable<User>;
-
+    public currentUserObs: Observable<User>;
 
     constructor(private apiService: ApiService) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
+        this.currentUserObs = this.currentUserSubject.asObservable();
     }
 
     /**
@@ -29,6 +28,13 @@ export class AuthenticationService {
      */
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
+    }
+
+    /**
+     * Set authentication by passing user to subject
+     */
+    public setAuthentication(user: User) {
+        this.currentUserSubject.next(user);
     }
 
     /**
@@ -43,7 +49,7 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.currentUserSubject.next(user);
+                    this.setAuthentication(user);
                 }
 
                 return user;
@@ -55,6 +61,6 @@ export class AuthenticationService {
      */
     logout() {
         localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
+        this.setAuthentication(null);
     }
 }

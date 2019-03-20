@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, CanActivate } from '@angular/router';
 
 import { AuthenticationService } from './../services/authentication.service';
 
@@ -19,7 +19,7 @@ export class NoAuthGuard implements CanActivate {
      * @param route 
      * @param state 
      */
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    canActivate() {
         const currentUser = this.authenticationService.currentUserValue;
         if (currentUser) {  
             // returns to home page
