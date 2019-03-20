@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LoaderService } from "../../services/loader.service";
+import { LoaderService } from "./../../core/services/loader.service";
 import { Subscription } from "rxjs";
 
 @Component({
     selector: 'metrolab-loader',
     templateUrl: './loader.component.html'
 })
-export class LoadingScreenComponent implements OnInit, OnDestroy {
+export class LoaderComponent implements OnInit, OnDestroy {
 
     isFetching: boolean = false;
     private loadingSubscription: Subscription;

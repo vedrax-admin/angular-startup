@@ -6,6 +6,7 @@ import { throwIfAlreadyLoaded } from './guards/module-import.guard';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import { fakeBackendProvider } from './mocks/auth-backend';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // provider used to create fake backend
+    fakeBackendProvider
   ]
 })
 export class CoreModule {
