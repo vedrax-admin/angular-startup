@@ -2,13 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { AuthGuard } from './auth.guard';
-import { User } from '../models/user.model';
 import { Role } from '../models/role.enum';
 import { AuthenticationService } from '../services/authentication.service';
-
-class MockRouter {
-    navigate(path) { }
-}
+import { ADMINISTRATOR } from './../../testing/data/user.data';
+import { MockAuthService } from './../../testing/services/authentication.service.mock';
+import { MockRouter } from './../../testing/services/router.mock';
 
 class MockActivatedRouteSnapshot {
     private _data: any;
@@ -19,30 +17,6 @@ class MockActivatedRouteSnapshot {
 
 class MockRouterStateSnapshot {
     url: string = '/';
-}
-
-const adminUser: User = {
-    id: 1,
-    username: 'username',
-    password: 'password',
-    firstName: 'Remy',
-    lastName: 'Penchenat',
-    role: Role.Admin,
-    token: 'token'
-};
-
-class MockAuthService {
-
-    private user: User;
-
-    get currentUserValue(): User {
-        return this.user;
-    };
-
-    setAuthentication(user: User) {
-        this.user = user;
-    }
-
 }
 
 describe('AuthGuard', () => {
@@ -66,19 +40,19 @@ describe('AuthGuard', () => {
             spyOn(router, 'navigate');
             authService = TestBed.get(AuthenticationService);
             //set logged in administrator by default
-            authService.setAuthentication(adminUser);
+            authService.setAuthentication(ADMINISTRATOR);
             authGuard = TestBed.get(AuthGuard);
             state = TestBed.get(RouterStateSnapshot);
         });
 
-        it('Administrator can access admin route when logged in', () => {
+        it('When logged in user has permission returns true', () => {
 
             forAdminRoute();
 
             expect(authGuard.canActivate(route, state)).toEqual(true);
         });
 
-        it('Simple user cannot access admin route when logged in', () => {
+        it('When logged in user has NOT permission returns false and redirect to home page', () => {
 
             forAdminRoute();
 
@@ -90,7 +64,7 @@ describe('AuthGuard', () => {
             expect(router.navigate).toHaveBeenCalledWith(['/']);
         });
 
-        it('Redirect to login when user is not logged in', () => {
+        it('When user is not logged in returns false and redirect to login page', () => {
 
             //no user currently logged in
             authService.setAuthentication(null);
