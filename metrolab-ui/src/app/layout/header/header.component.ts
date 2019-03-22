@@ -16,21 +16,13 @@ export class HeaderComponent implements OnInit {
      */
     currentUser: User;
 
-    /**
-     * Constructor
-     * @param router 
-     * @param authenticationService 
-     */
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService
     ) { }
 
-    /**
-     * Initialization method
-     */
     ngOnInit() {
-        this.authenticationService.currentUser
+        this.authenticationService.currentUserObs
             .subscribe(user => this.currentUser = user);
     }
 

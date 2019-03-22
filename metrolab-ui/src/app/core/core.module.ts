@@ -11,7 +11,6 @@ import { errorInterceptorProvider } from './interceptors/error.interceptor';
 @NgModule({
   imports: [
     CommonModule
-    
   ],
   exports: [],
   declarations: [],
