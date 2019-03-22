@@ -3,13 +3,14 @@ import {
     HttpClientTestingModule,
     HttpTestingController
 } from '@angular/common/http/testing';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { JwtInterceptor } from './jwt.interceptor';
 import { AuthenticationService } from '../services/authentication.service';
 import { MockAuthService } from './../../testing/services/authentication.service.mock';
 import { SIMPLE_USER } from './../../testing/data/user.data';
 import { Data } from './../../testing/data/util.data';
+import { jwtInterceptorProvider } from './jwt.interceptor';
 
 const testUrl = '/data';
 
@@ -23,11 +24,7 @@ describe('JwtInterceptor', () => {
             TestBed.configureTestingModule({
                 providers: [JwtInterceptor,
                     { provide: AuthenticationService, useClass: MockAuthService },
-                    {
-                        provide: HTTP_INTERCEPTORS,
-                        useClass: JwtInterceptor,
-                        multi: true,
-                    }
+                    jwtInterceptorProvider
                 ],
                 imports: [HttpClientTestingModule]
             });

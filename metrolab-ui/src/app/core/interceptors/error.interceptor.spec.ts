@@ -3,12 +3,13 @@ import {
     HttpClientTestingModule,
     HttpTestingController
 } from '@angular/common/http/testing';
-import { HTTP_INTERCEPTORS, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { ErrorInterceptor } from './error.interceptor';
 import { AuthenticationService } from '../services/authentication.service';
 import { MockAuthService } from './../../testing/services/authentication.service.mock';
 import { Data } from './../../testing/data/util.data';
+import { errorInterceptorProvider } from './error.interceptor';
 
 const testUrl = '/data';
 
@@ -22,11 +23,7 @@ describe('ErrorInterceptor', () => {
             TestBed.configureTestingModule({
                 providers: [ErrorInterceptor,
                     { provide: AuthenticationService, useClass: MockAuthService },
-                    {
-                        provide: HTTP_INTERCEPTORS,
-                        useClass: ErrorInterceptor,
-                        multi: true,
-                    }
+                    errorInterceptorProvider
                 ],
                 imports: [HttpClientTestingModule]
             });

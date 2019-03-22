@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import {
-    HttpClientTestingModule,
-    HttpTestingController
+    HttpClientTestingModule
 } from '@angular/common/http/testing';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { LoaderInterceptor } from './loader.interceptor';
 import { LoaderService } from '../services/loader.service';
 import { MockLoaderService } from './../../testing/services/loader.service.mock';
 import { Data } from './../../testing/data/util.data';
 import { finalize } from 'rxjs/operators';
+import { loaderInterceptorProvider } from './loader.interceptor';
 
 const testUrl = '/data';
 
@@ -17,22 +17,16 @@ describe('LoaderInterceptor', () => {
     describe('intercept', () => {
         let loaderService: LoaderService;
         let httpClient: HttpClient;
-        let httpMock: HttpTestingController;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 providers: [LoaderInterceptor,
                     { provide: LoaderService, useClass: MockLoaderService },
-                    {
-                        provide: HTTP_INTERCEPTORS,
-                        useClass: LoaderInterceptor,
-                        multi: true,
-                    }
+                    loaderInterceptorProvider
                 ],
                 imports: [HttpClientTestingModule]
             });
             httpClient = TestBed.get(HttpClient);
-            httpMock = TestBed.get(HttpTestingController);
             loaderService = TestBed.get(LoaderService);
             spyOn(loaderService, 'startLoading');
             spyOn(loaderService, 'stopLoading');
