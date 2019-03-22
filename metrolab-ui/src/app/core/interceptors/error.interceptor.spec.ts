@@ -3,21 +3,17 @@ import {
     HttpClientTestingModule,
     HttpTestingController
 } from '@angular/common/http/testing';
-import { HTTP_INTERCEPTORS,HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { ErrorInterceptor } from './error.interceptor';
 import { AuthenticationService } from '../services/authentication.service';
 import { MockAuthService } from './../../testing/services/authentication.service.mock';
+import { Data } from './../../testing/data/util.data';
 
 const testUrl = '/data';
 
-interface Data {
-    name: string;
-  }
-
 describe('ErrorInterceptor', () => {
     describe('intercept', () => {
-        let errorInterceptor: ErrorInterceptor;
         let authService: AuthenticationService;
         let httpClient: HttpClient;
         let httpMock: HttpTestingController;
@@ -38,7 +34,6 @@ describe('ErrorInterceptor', () => {
             httpMock = TestBed.get(HttpTestingController);
             authService = TestBed.get(AuthenticationService);
             spyOn(authService, 'logout');
-            errorInterceptor = TestBed.get(ErrorInterceptor);
 
         });
 
@@ -50,7 +45,7 @@ describe('ErrorInterceptor', () => {
             httpClient.get<Data>(testUrl).subscribe(
                 res => fail('should have failed with the 401 error'),
                 (error: HttpErrorResponse) => {
-                    expect(error).toEqual(emsg, 'message');
+                    expect(error.error).toEqual(emsg, 'message');
                 }
             );
 
