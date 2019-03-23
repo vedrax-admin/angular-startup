@@ -23,6 +23,11 @@ describe('ApiService', () => {
         httpMock = TestBed.get(HttpTestingController);
     });
 
+    afterEach(() => {
+        // After every test, assert that there are no more pending requests.
+        httpMock.verify();
+    });
+
     it('Should get the data', () => {
 
         apiService.get<Data>(testUrl).subscribe((data: Data) => {
@@ -66,14 +71,13 @@ describe('ApiService', () => {
      * @param data The mock data to be returned
      */
     function mockRequest(method: string) {
-        //The mocking request
+        // The following `expectOne()` will match the request's URL.
         const req = httpMock.expectOne(`${BASE_URL}${testUrl}`);
-        //Check for method
-        expect(req.request.method).toBe(method);
-        //return mock data
+        //Assert the method
+        expect(req.request.method).toEqual(method);
+        // Respond with mock data, causing Observable to resolve.
+        // Subscribe callback asserts that correct data was returned.
         req.flush({ name: fullname });
-        //verify that there are not outstanding HTTP calls
-        httpMock.verify();
     }
 
     /**
