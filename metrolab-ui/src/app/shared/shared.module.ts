@@ -9,14 +9,14 @@ import {AppMaterialModule} from './../app-material.module';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        // Material
-        AppMaterialModule,
+        AppMaterialModule
     ],
     declarations: [],
     exports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        AppMaterialModule
     ]
 })
 export class SharedModule { }

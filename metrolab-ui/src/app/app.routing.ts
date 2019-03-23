@@ -1,7 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { LoginComponent } from './login/login.component';
-import { NoAuthGuard } from './core/guards/no-auth.guard';
 import { AuthGuard } from './core/guards/auth.guard';
 import { Role } from './core/models/role.enum';
 
@@ -17,12 +15,6 @@ const appRoutes: Routes = [
         loadChildren: '../modules/business/business.module#BusinessModule',
         canActivate: [AuthGuard]
     },
-    {
-        path: 'login',
-        component: LoginComponent,
-        canActivate: [NoAuthGuard]
-    },
-
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
