@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 
 @Component({ templateUrl: 'employee.component.html' })
 export class EmployeeComponent {
