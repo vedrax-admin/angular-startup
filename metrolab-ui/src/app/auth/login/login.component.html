@@ -1,30 +1,34 @@
-<mat-card>
-    <mat-card-title>
-        Login
-    </mat-card-title>
-    <mat-card-content>
-        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+<form class="form-signin" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+    <mat-card>
+        <mat-card-header>
+            <div mat-card-avatar class="login-header-image"></div>
+            <mat-card-title>Welcome to</mat-card-title>
+            <mat-card-subtitle>Metrolab</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
 
-            <mat-form-field class="full-width">
+            <mat-form-field class="w-100">
                 <input type="email" matInput placeholder="Email" formControlName="username">
                 <mat-error *ngIf="submitted && authForm.username.errors">A valid email is required</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="full-width">
+            <mat-form-field class="w-100">
                 <input matInput type="password" placeholder="Password" formControlName="password">
-                <mat-error *ngIf="submitted && authForm.password.errors">The password must have at least 4 characters
+                <mat-error *ngIf="submitted && authForm.password.errors">The password must have at least 4
+                    characters
                 </mat-error>
             </mat-form-field>
-
-            <div class="pt-25">
-                <button class="full-width" type="submit" [disabled]="loading" mat-raised-button
-                    color="primary">{{loading ? 'Please wait...' : 'Login'}}</button>
-            </div>
 
             <div *ngIf="error" class="alert alert-danger" role="alert">
                 {{error}}
             </div>
 
-        </form>
-    </mat-card-content>
-</mat-card>
+        </mat-card-content>
+        <mat-card-actions>
+
+            <button class="w-100" type="submit" [disabled]="loading" mat-raised-button
+                color="primary">{{loading ? 'Please wait...' : 'Login'}}</button>
+
+        </mat-card-actions>
+    </mat-card>
+</form>

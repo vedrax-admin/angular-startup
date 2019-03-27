@@ -1,22 +1,22 @@
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, AbstractControl } from '@angular/forms';
 
-export function shouldBeValid(form: FormGroup, ctrlName: string, value: string) {
-    isValid(form, ctrlName, value, true);
+export function shouldBeValid(form: FormGroup, ctrlName: string, value: string):boolean {
+    return testWithExpection(form, ctrlName, value, true);
 }
 
-export function shouldBeInvalid(form: FormGroup, ctrlName: string, value: string) {
-    isValid(form, ctrlName, value, false);
+export function shouldBeInvalid(form: FormGroup, ctrlName: string, value: string):boolean {
+    return testWithExpection(form, ctrlName, value, false);
 }
 
-function isValid(form: FormGroup, ctrlName: string, value: string, expectation: boolean) {
+function testWithExpection(form: FormGroup, ctrlName: string, value: string, expectation: boolean):boolean {
     let ctrl = setCtrlValue(form, ctrlName, value);
-    expect(ctrl.valid).toBe(expectation);
+    return ctrl.valid === expectation;
 }
 
-export function shouldHaveError(form: FormGroup, ctrlName: string, value: string, errorName: string) {
+export function shouldHaveError(form: FormGroup, ctrlName: string, value: string, errorName: string) :boolean {
     let ctrl = setCtrlValue(form, ctrlName, value);
     let errors = ctrl.errors || {};
-    expect(errors[errorName]).toBeTruthy();
+    return errors.hasOwnProperty(errorName);
 }
 
 export function setCtrlValue(form: FormGroup, ctrlName: string, value: string): AbstractControl {

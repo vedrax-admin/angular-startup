@@ -14,6 +14,10 @@ import { LoaderComponent } from './loader/loader.component';
         HeaderComponent,
         FooterComponent
     ],
-    exports: []
+    exports: [
+        LoaderComponent,
+        HeaderComponent,
+        FooterComponent
+    ]
 })
 export class LayoutModule { }

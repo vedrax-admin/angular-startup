@@ -6,13 +6,13 @@ import { Role } from './core/models/role.enum';
 const appRoutes: Routes = [
     {
         path: 'admin',
-        loadChildren: '../modules/admin/admin.module#AdminModule',
+        loadChildren: './modules/admin/admin.module#AdminModule',
         canActivate: [AuthGuard],
         data: { roles: [Role.Admin] }
     },
     {
         path: '',
-        loadChildren: '../modules/business/business.module#BusinessModule',
+        loadChildren: './modules/business/business.module#BusinessModule',
         canActivate: [AuthGuard]
     },
     // otherwise redirect to home

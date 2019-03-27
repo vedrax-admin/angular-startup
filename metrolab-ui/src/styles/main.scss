@@ -1,0 +1,20 @@
+// import global themes
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+// import global variables
+@import "./constants";
+
+// import bootstrap
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/alert";
+@import "reset";
+
+// import directories
+@import './0-base/base-dir';
+@import './1-layouts/layouts-dir';
+@import './2-modules/modules-dir';

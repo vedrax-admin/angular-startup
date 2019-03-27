@@ -1,6 +1,9 @@
-<mat-toolbar color="primary" class="app-toolbar no-print" *ngIf="currentUser">
-    <a class="nav-link home" routerLink="/">Metrolab...</a>
-    <span class="top-menu-spacer"></span>
+<mat-toolbar color="primary" *ngIf="currentUser">
+    <a routerLink="/">
+        <img src="assets/images/vedrax-logo-opt.svg" width="40" height="40" title="Home" alt="Home">
+    </a>
+    <span class="pl-2">Metrolab</span>
+    <span class="mr-auto"></span>
     <a mat-icon-button routerLink="/admin" *ngIf="isAdmin">
         <mat-icon>settings</mat-icon>
     </a>

@@ -127,12 +127,14 @@ describe('LoginComponent', () => {
 
         function controlShouldBeValid(ctrlName: string, value: string) {
             const comp = getLoginComponent();
-            shouldBeValid(comp.loginForm, ctrlName, value);
+            let test: boolean = shouldBeValid(comp.loginForm, ctrlName, value);
+            expect(test).toBe(true);
         }
 
         function hasError(ctrlName: string, value: string, errorName: string) {
             const comp = getLoginComponent();
-            shouldHaveError(comp.loginForm, ctrlName, value, errorName);
+            let test:boolean = shouldHaveError(comp.loginForm, ctrlName, value, errorName);
+            expect(test).toBe(true);
         }
 
         function getLoginComponent() {
