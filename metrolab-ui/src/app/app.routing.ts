@@ -7,7 +7,8 @@ const appRoutes: Routes = [
     {
         path: 'admin',
         loadChildren: './modules/admin/admin.module#AdminModule',
-        canActivate: [AuthGuard],
+        //load only module if user is an administrator
+        canLoad: [AuthGuard],
         data: { roles: [Role.Admin] }
     },
     {

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { SharedModule } from './../shared/shared.module';
 import { FooterComponent } from './footer/footer.component';
@@ -7,7 +8,9 @@ import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
     imports: [
-        SharedModule
+        SharedModule,
+        //we use routerLink in our templates
+        RouterModule
     ],
     declarations: [
         LoaderComponent,

@@ -5,6 +5,7 @@ import { EmployeeComponent } from './employee/employee.component';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: 'employee', pathMatch: 'full' },
   {
     path: '',
     component: EntryComponent,
@@ -14,11 +15,6 @@ const routes: Routes = [
         component: EmployeeComponent
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/admin/employee',
-    pathMatch: 'full'
   }
 ];
 

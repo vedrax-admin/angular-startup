@@ -5,6 +5,7 @@ import { CompanyComponent } from './company/company.component';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: 'company', pathMatch: 'full' },
   {
     path: '',
     component: EntryComponent,
@@ -14,11 +15,6 @@ const routes: Routes = [
         component: CompanyComponent
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/company',
-    pathMatch: 'full'
   }
 ];
 

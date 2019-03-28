@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, Route, CanActivate, CanLoad, ActivatedRouteSnapshot, RouterStateSnapshot, Data } from '@angular/router';
 
 import { AuthenticationService } from './../services/authentication.service';
 import { User } from './../models/user.model';
@@ -8,42 +8,42 @@ import { User } from './../models/user.model';
  * Authentication and authorization guard
  */
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanLoad {
 
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService
     ) { }
 
-    /**
-     * Check if user is authenticated and authorized
-     * @param route 
-     * @param state 
-     */
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean {
+        return this.checkPermission(route.data, state);
+    }
+
+    canLoad(route: Route): boolean {
+        return this.checkPermission(route.data);
+    }
+
+    private checkPermission(data: Data, state?: RouterStateSnapshot) {
         const currentUser = this.authenticationService.currentUserValue;
         if (currentUser) {
-            return this.hasPermission(route, currentUser);
+            if (data.roles && data.roles.indexOf(currentUser.role) === -1) {
+                // if unauthorized, redirect to home page
+                this.router.navigate(['/']);
+                return false;
+            } else {
+                return true;
+            }
         }
-
-        // not logged in so redirect to login page with the return url
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+        this.redirectToLogin(state);
         return false;
     }
 
-    /**
-     * Check if logged in user has permission
-     * @param route 
-     * @param user 
-     */
-    private hasPermission(route: ActivatedRouteSnapshot, user: User): boolean {
-        if (route.data.roles && route.data.roles.indexOf(user.role) === -1) {
-            // if unauthorized, redirect to home page
+    private redirectToLogin(state?: RouterStateSnapshot): void {
+        if (state) {
+            this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+        } else {
             this.router.navigate(['/']);
-            return false;
         }
-        // authorized
-        return true;
     }
 
 }
