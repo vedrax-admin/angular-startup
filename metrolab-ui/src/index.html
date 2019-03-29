@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Metrolab</title>
@@ -8,8 +9,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style type="text/css">
+    body,
+    html {
+      height: 100%;
+    }
+
+    .app-loading {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #1976D2;
+      size: 16px;
+    }
+  </style>
 </head>
+
 <body>
-  <metrolab-root></metrolab-root>
+  <metrolab-root>
+    <div class="app-loading">Loading...</div>
+  </metrolab-root>
+
 </body>
+
 </html>
